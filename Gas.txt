@@ -1,0 +1,108 @@
+#define Rpin 13      // Pin where the LED is connected
+#define THRESHOLD 100  
+
+#define Gpin 12
+
+void setup() 
+{
+  pinMode(Rpin, OUTPUT);
+  pinMode(Gpin, OUTPUT); // Set LED pin as output
+  Serial.begin(9600);       // Initialize serial communication
+}
+
+void loop() 
+{
+  int sensorValue = analogRead(A0); // Read the sensor value
+  Serial.println(sensorValue); // Print the sensor value to the Serial Monitor
+
+  if (sensorValue > THRESHOLD)
+  {
+    digitalWrite(Rpin, HIGH);
+    digitalWrite(Gpin, LOW); // Turn on the LED
+    
+  }
+  else
+  {
+    digitalWrite(Rpin, LOW);
+    digitalWrite(Gpin, HIGH);  // Turn off the LED
+  }
+  delay(1000); // Delay for readability
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+This Arduino code reads an analog sensor value, compares it to a predefined threshold, and uses the result to control two LEDs connected to pins 13 and 12. Here's a breakdown of how it works:
+
+Code Explanation:
+Pin Definitions:
+
+cpp
+Copy code
+#define Rpin 13 // Pin where the red LED is connected
+#define THRESHOLD 100
+#define Gpin 12 // Pin where the green LED is connected
+Rpin and Gpin are defined as constants to represent the pins where the red and green LEDs are connected (pins 13 and 12, respectively).
+THRESHOLD is set to 100. This is the threshold value against which the sensor readings will be compared.
+Setup Function:
+
+cpp
+Copy code
+void setup() 
+{
+  pinMode(Rpin, OUTPUT);
+  pinMode(Gpin, OUTPUT); // Set both LED pins as outputs
+  Serial.begin(9600); // Initialize serial communication at 9600 baud rate
+}
+Sets the Rpin and Gpin as output pins so they can control the LEDs.
+Initializes serial communication, allowing you to print the sensor values to the Serial Monitor.
+Loop Function:
+
+cpp
+Copy code
+void loop() 
+{
+  int sensorValue = analogRead(A0); // Read the sensor value from analog pin A0
+  Serial.println(sensorValue); // Print the sensor value to the Serial Monitor
+Reads the analog sensor value connected to pin A0 and stores it in sensorValue.
+Prints sensorValue to the Serial Monitor for easy monitoring.
+Condition Check and LED Control:
+
+cpp
+Copy code
+  if (sensorValue > THRESHOLD)
+  {
+    digitalWrite(Rpin, HIGH); // Turn on the red LED
+    digitalWrite(Gpin, LOW);  // Turn off the green LED
+  }
+  else
+  {
+    digitalWrite(Rpin, LOW); // Turn off the red LED
+    digitalWrite(Gpin, HIGH); // Turn on the green LED
+  }
+If sensorValue is greater than THRESHOLD (100), it turns on the red LED (Rpin) and turns off the green LED (Gpin).
+If sensorValue is less than or equal to THRESHOLD, it turns off the red LED and turns on the green LED.
+This behavior signals when the sensor value is above or below the threshold.
+Delay:
+
+cpp
+Copy code
+  delay(1000); // Delay for readability
+Pauses the program for 1 second to make the output changes easier to observe.
+Summary:
+This code checks a sensor reading against a threshold of 100.
+If the sensor reading is above 100, the red LED (pin 13) is on, and the green LED (pin 12) is off.
+If the sensor reading is 100 or below, the red LED is off, and the green LED is on.
